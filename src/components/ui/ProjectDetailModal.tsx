@@ -140,19 +140,20 @@ export default function ProjectDetailModal({ project, onClose }: ProjectDetailMo
                   </div>
                 </div>
 
-                {(project.github || project.caseStudy) && (
+                {(project.githubLinks?.length || project.caseStudy) && (
                   <div className="flex flex-wrap gap-3 mt-9 pt-7 border-t border-line">
-                    {project.github && (
+                    {project.githubLinks?.map((link) => (
                       <a
-                        href={project.github}
+                        key={link.url}
+                        href={link.url}
                         target="_blank"
                         rel="noreferrer"
                         className="group inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-line text-sm font-medium text-ink-primary hover:border-accent/40 transition-colors"
                       >
-                        <GithubIcon size={16} /> GitHub
+                        <GithubIcon size={16} /> GitHub {link.label}
                         <ArrowUpRight size={14} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                       </a>
-                    )}
+                    ))}
                     {project.caseStudy && (
                       <a
                         href={project.caseStudy}

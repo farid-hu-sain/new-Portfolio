@@ -22,7 +22,10 @@ export interface PortfolioProject {
   /** Tailwind-safe accent tokens — see PROJECT_ACCENTS in ProjectVisuals.tsx */
   accent: "green" | "violet" | "blue" | "teal";
 
-  github?: string;
+  githubLinks?: {
+    label: string;
+    url: string;
+  }[];
   demo?: string;
   caseStudy?: string;
 }
@@ -50,6 +53,16 @@ export const portfolioProjects: PortfolioProject[] = [
     visualType: "mobile",
     image: "/projects/math-for-fun.png",
     accent: "green",
+    githubLinks: [
+      {
+        label: "Android App",
+        url: "https://github.com/farid-hu-sain/math-for-fun-Android",
+      },
+      {
+        label: "Backend",
+        url: "https://github.com/farid-hu-sain/math-for-fun-Backend",
+      },
+    ],
   },
   {
     id: "job-finder",
@@ -72,6 +85,12 @@ export const portfolioProjects: PortfolioProject[] = [
     visualType: "mobile",
     image: "/projects/job-finder.png",
     accent: "violet",
+    githubLinks: [
+      {
+        label: "App",
+        url: "https://github.com/farid-hu-sain/jobfinder",
+      },
+    ],
   },
   {
     id: "money-tracker",
@@ -94,6 +113,12 @@ export const portfolioProjects: PortfolioProject[] = [
     visualType: "mobile",
     image: "/projects/money-tracker.png",
     accent: "teal",
+    githubLinks: [
+      {
+        label: "App",
+        url: "https://github.com/farid-hu-sain/Money_Tracker",
+      },
+    ],
   },
   {
     id: "crowdfunding",
@@ -136,6 +161,16 @@ export const portfolioProjects: PortfolioProject[] = [
     visualType: "web",
     image: "/projects/simas.png",
     accent: "teal",
+    githubLinks: [
+      {
+        label: "Frontend",
+        url: "https://github.com/rizkiansyahalfin/simas-fe",
+      },
+      {
+        label: "Backend",
+        url: "https://github.com/rizkiansyahalfin/simas-be",
+      },
+    ],
   },
   {
     id: "habit-tracker-api",
@@ -156,6 +191,12 @@ export const portfolioProjects: PortfolioProject[] = [
     technologies: ["Express.js", "TypeScript", "Prisma", "PostgreSQL"],
     visualType: "backend",
     accent: "green",
+    githubLinks: [
+      {
+        label: "Backend",
+        url: "https://github.com/farid-hu-sain/Habbit-Forge-BE",
+      },
+    ],
   },
   {
     id: "laundry-management",

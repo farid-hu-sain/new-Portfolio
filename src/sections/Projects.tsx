@@ -47,7 +47,8 @@ function GhostCard({
 function ActionButton({ project }: { project: PortfolioProject }) {
   const accent = PROJECT_ACCENTS[project.accent];
   const hasCaseStudy = Boolean(project.caseStudy);
-  const hasGithub = Boolean(project.github);
+  const githubLinks = project.githubLinks ?? [];
+  const hasGithub = githubLinks.length > 0;
 
   if (!hasCaseStudy && !hasGithub) {
     return null;
@@ -64,14 +65,17 @@ function ActionButton({ project }: { project: PortfolioProject }) {
           <ArrowUpRight size={15} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
         </a>
       )}
-      {hasGithub && (
+      {githubLinks.map((link) => (
         <a
-          href={project.github}
+          key={link.url}
+          href={link.url}
+          target="_blank"
+          rel="noreferrer"
           className="group inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-line text-ink-primary text-sm font-medium hover:border-ink-secondary/50 hover:bg-surface transition-colors"
         >
-          <GithubIcon size={15} /> GitHub
+          <GithubIcon size={15} /> GitHub {link.label}
         </a>
-      )}
+      ))}
     </div>
   );
 }

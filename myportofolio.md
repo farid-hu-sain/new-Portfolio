@@ -178,6 +178,8 @@ Melakukan pengembangan aplikasi frontend menggunakan React dan TypeScript serta 
 - **Ringkasan:** Aplikasi pembelajaran matematika interaktif dengan quiz, progress tracking, answer review, dan dukungan pembelajaran berbasis AI.
 - **Teknologi terkonfirmasi:** Kotlin, Jetpack Compose, Hilt, Retrofit, NestJS, PostgreSQL
 - **Karakteristik:** Modular Android architecture dengan REST API
+- **Repository Android:** https://github.com/farid-hu-sain/math-for-fun-Android
+- **Repository Backend:** https://github.com/farid-hu-sain/math-for-fun-Backend
 
 #### Highlight
 
@@ -200,6 +202,7 @@ Melakukan pengembangan aplikasi frontend menggunakan React dan TypeScript serta 
 - **Peran:** Mobile Developer
 - **Ringkasan:** Aplikasi pencarian pekerjaan lintas platform dengan autentikasi, pencarian, advanced filtering, bookmark, dan search history.
 - **Teknologi terkonfirmasi:** Flutter, Dart, Riverpod, Supabase, GoRouter, Dio
+- **Repository App:** https://github.com/farid-hu-sain/jobfinder
 
 #### Highlight
 
@@ -225,6 +228,7 @@ Melakukan pengembangan aplikasi frontend menggunakan React dan TypeScript serta 
 - **Ringkasan:** Aplikasi keuangan Android offline-first untuk mengelola pemasukan, pengeluaran, saldo, budget, periode, dan riwayat transaksi menggunakan penyimpanan lokal tanpa external API.
 - **Teknologi yang terkonfirmasi:** Kotlin, Local Database, Offline First
 - **Karakteristik penting:** Tidak menggunakan external API atau backend service
+- **Repository App:** https://github.com/farid-hu-sain/Money_Tracker
 
 #### Highlight
 
@@ -270,6 +274,8 @@ Melakukan pengembangan aplikasi frontend menggunakan React dan TypeScript serta 
 - **Konteks:** Proyek tim di Pondok IT Indonesia
 - **Ringkasan:** Sistem internal untuk mengelola administrasi dan operasional masjid.
 - **Teknologi:** React, TypeScript, REST API
+- **Repository Frontend:** https://github.com/rizkiansyahalfin/simas-fe
+- **Repository Backend:** https://github.com/rizkiansyahalfin/simas-be
 
 #### Highlight
 
@@ -290,6 +296,7 @@ Melakukan pengembangan aplikasi frontend menggunakan React dan TypeScript serta 
 - **Peran:** Backend Developer
 - **Ringkasan:** REST API untuk mengelola pengguna, kebiasaan, kategori, dan daily habit check-in.
 - **Teknologi:** Express.js, TypeScript, Prisma, PostgreSQL
+- **Repository Backend:** https://github.com/farid-hu-sain/Habbit-Forge-BE
 
 #### Highlight
 
