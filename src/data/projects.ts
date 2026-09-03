@@ -14,44 +14,48 @@ export interface PortfolioProject {
   highlights: string[];
 
   technologies: string[];
-  moreCount?: number;
 
   visualType: "mobile" | "web" | "backend";
   image?: string;
+  imageWidth?: number;
+  imageHeight?: number;
 
-  /** Tailwind-safe accent tokens — see PROJECT_ACCENTS in ProjectVisuals.tsx */
+  /** Tailwind-safe accent tokens — see PROJECT_ACCENTS in projectAccents.ts */
   accent: "green" | "violet" | "blue" | "teal";
 
   githubLinks?: {
     label: string;
     url: string;
   }[];
-  demo?: string;
   caseStudy?: string;
 }
 
-export const portfolioProjects: PortfolioProject[] = [
+const projects: PortfolioProject[] = [
   {
     id: "math-for-fun",
     number: 1,
     title: "Math For Fun",
-    category: "Full-Stack App",
-    role: "Android Developer",
+    category: "Fullstack Mobile Application",
+    role: "Android / Fullstack Project",
     status: "Completed",
     description:
-      "Interactive mathematics learning application with quizzes, progress tracking, answer review, and AI-assisted learning.",
+      "Interactive mathematics learning application combining a Kotlin and Jetpack Compose Android client with a NestJS and PostgreSQL backend.",
     details:
-      "An Android learning experience designed to make mathematics practice more engaging while keeping each learner's progress organized and easy to review.",
+      "A fullstack mobile learning application designed to make mathematics practice more engaging through a native Android client, REST API, backend service, and relational database.",
     highlights: [
-      "Interactive quizzes and guided mathematics practice",
+      "Interactive quiz system and guided mathematics practice",
       "Progress tracking and answer review",
       "AI-assisted learning support",
-      "Modular Android architecture backed by a REST API",
+      "REST API integration with Retrofit",
+      "Dependency injection with Hilt",
+      "NestJS backend service",
+      "PostgreSQL database",
     ],
     technologies: ["Kotlin", "Jetpack Compose", "Hilt", "Retrofit", "NestJS", "PostgreSQL"],
-    moreCount: 4,
     visualType: "mobile",
     image: "/projects/math-for-fun.png",
+    imageWidth: 720,
+    imageHeight: 1600,
     accent: "green",
     githubLinks: [
       {
@@ -68,7 +72,7 @@ export const portfolioProjects: PortfolioProject[] = [
     id: "job-finder",
     number: 2,
     title: "Job Finder",
-    category: "Flutter App",
+    category: "Cross-Platform Mobile",
     role: "Mobile Developer",
     description:
       "Flutter-based job discovery application with authentication, search, advanced filtering, bookmarks, and search history.",
@@ -78,12 +82,16 @@ export const portfolioProjects: PortfolioProject[] = [
       "User authentication and protected application flow",
       "Job search with advanced filtering",
       "Bookmarks for saved opportunities",
+      "Job detail experience",
       "Persistent search history",
+      "Riverpod state management and GoRouter navigation",
+      "Supabase integration",
     ],
     technologies: ["Flutter", "Dart", "Riverpod", "Supabase", "GoRouter", "Dio"],
-    moreCount: 2,
     visualType: "mobile",
     image: "/projects/job-finder.png",
+    imageWidth: 853,
+    imageHeight: 1844,
     accent: "violet",
     githubLinks: [
       {
@@ -96,22 +104,25 @@ export const portfolioProjects: PortfolioProject[] = [
     id: "money-tracker",
     number: 3,
     title: "Money Tracker",
-    category: "Native Android Application",
+    category: "Native Android / Offline-first",
     role: "Android Developer",
     status: "Completed",
     description:
-      "An offline-first Android finance tracker for managing income, expenses, balances, and transaction history using local storage without external APIs.",
+      "An offline-first Android finance tracker for managing income, expenses, balances, budgets, financial periods, and transaction history using local storage.",
     details:
-      "An offline-first Android personal finance application built with Kotlin for tracking income, expenses, balances, and transaction history using local data storage without relying on external APIs.",
+      "An offline-first Android personal finance application built with Kotlin for tracking income, expenses, balances, budgets, financial periods, and transaction history without relying on external APIs.",
     highlights: [
       "Offline-first financial tracking",
-      "Income, expense, and balance management",
+      "Income, expense, balance, and budget management",
+      "Configurable financial periods",
       "Locally stored transaction history",
       "No external API dependency",
     ],
-    technologies: ["Kotlin", "Local Database", "Offline First"],
+    technologies: ["Kotlin", "Local Database", "Offline-first"],
     visualType: "mobile",
     image: "/projects/money-tracker.png",
+    imageWidth: 841,
+    imageHeight: 1870,
     accent: "teal",
     githubLinks: [
       {
@@ -124,7 +135,7 @@ export const portfolioProjects: PortfolioProject[] = [
     id: "crowdfunding",
     number: 4,
     title: "Crowdfunding Platform",
-    category: "Web App",
+    category: "Frontend Web",
     role: "Frontend Development",
     description:
       "A responsive crowdfunding web application built with reusable frontend components and REST API integration.",
@@ -135,6 +146,7 @@ export const portfolioProjects: PortfolioProject[] = [
       "Reusable and maintainable React components",
       "REST API data integration",
       "Type-safe frontend development",
+      "Team development workflow",
     ],
     technologies: ["React", "TypeScript", "REST API"],
     visualType: "web",
@@ -145,29 +157,32 @@ export const portfolioProjects: PortfolioProject[] = [
     number: 5,
     title: "SIMAS",
     fullTitle: "Mosque Management Information System",
-    category: "Web App",
+    category: "Frontend Web / Team Project",
     role: "Frontend Development",
     description:
-      "An internal system for managing mosque administrative operations, built by a structured team at Pondok IT Indonesia.",
+      "A mosque administration and operations management system developed within a structured team environment.",
     details:
       "An internal information system created with a structured development team to simplify mosque administration and day-to-day operational management.",
     highlights: [
       "Administrative management interface",
       "Reusable frontend component structure",
       "REST API integration",
-      "Team-based product development workflow",
+      "Responsive interface development",
+      "Team collaboration",
     ],
     technologies: ["React", "TypeScript", "REST API"],
     visualType: "web",
     image: "/projects/simas.png",
+    imageWidth: 1714,
+    imageHeight: 918,
     accent: "teal",
     githubLinks: [
       {
-        label: "Frontend",
+        label: "Team Frontend",
         url: "https://github.com/rizkiansyahalfin/simas-fe",
       },
       {
-        label: "Backend",
+        label: "Team Backend",
         url: "https://github.com/rizkiansyahalfin/simas-be",
       },
     ],
@@ -176,7 +191,7 @@ export const portfolioProjects: PortfolioProject[] = [
     id: "habit-tracker-api",
     number: 6,
     title: "Habit Tracker API",
-    category: "Backend API",
+    category: "Backend & Database",
     role: "Backend Developer",
     description:
       "A backend REST API for managing users, habits, categories, and habit check-ins.",
@@ -202,22 +217,49 @@ export const portfolioProjects: PortfolioProject[] = [
     id: "laundry-management",
     number: 7,
     title: "Laundry Management App",
-    category: "Android / Full-Stack App",
-    role: "Full-Stack Android Developer",
+    category: "Fullstack Application",
+    role: "Android / Fullstack Project",
     status: "In Development",
     description:
-      "A full-stack Android laundry management application built with Kotlin and Jetpack Compose, supported by a NestJS backend with Prisma and PostgreSQL. Designed to manage outlets, employees, customers, laundry services, orders, transactions, and business operations through a centralized system.",
+      "Fullstack laundry management system combining a Kotlin and Jetpack Compose Android client with a modular NestJS API and PostgreSQL database.",
     details:
-      "An Android-first business management application for laundry owners and employees, combining a native Kotlin and Jetpack Compose client with a modular NestJS REST API. The system is being designed for multi-business operations, secure authentication, role-based access, centralized operational data, and scalable outlet management.",
+      "A fullstack business management application for laundry owners and employees. It combines a native Android client with a modular backend, secure authentication, role-based access, and centralized operational data.",
     highlights: [
-      "Access and refresh token authentication with role-based authorization",
-      "Multi-business, outlet, employee, and customer management",
-      "Laundry services, orders, status tracking, transactions, and payments",
-      "Clean Architecture Android client integrated with a modular NestJS REST API",
+      "Access token and refresh token authentication",
+      "Role-based authorization",
+      "Business and outlet management",
+      "Employee and customer management",
+      "Laundry service management",
+      "Orders and status tracking",
+      "Transactions and payments",
+      "Clean Architecture Android client",
+      "Modular NestJS backend",
     ],
     technologies: ["Kotlin", "Jetpack Compose", "NestJS", "PostgreSQL", "Prisma", "Retrofit", "Hilt"],
     visualType: "mobile",
     image: "/projects/laundry-management.png",
+    imageWidth: 866,
+    imageHeight: 1817,
     accent: "teal",
   },
 ];
+
+const projectOrder = [
+  "math-for-fun",
+  "laundry-management",
+  "habit-tracker-api",
+  "crowdfunding",
+  "simas",
+  "job-finder",
+  "money-tracker",
+];
+
+export const portfolioProjects: PortfolioProject[] = projectOrder.map((id, index) => {
+  const project = projects.find((item) => item.id === id);
+
+  if (!project) {
+    throw new Error(`Project data not found for ${id}`);
+  }
+
+  return { ...project, number: index + 1 };
+});

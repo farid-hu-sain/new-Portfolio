@@ -6,6 +6,7 @@ export interface ExperienceEntry {
   location: string;
   description: string;
   responsibilities: string[];
+  technologies: string[];
   projectsInvolved: {
     name: string;
     fullName?: string;
@@ -17,18 +18,20 @@ export const experience: ExperienceEntry[] = [
   {
     organization: "Pondok IT Indonesia",
     program: "Rumah IT Program",
-    role: "Front-End Developer",
+    role: "Frontend Developer",
     period: "January 2026 — July 2026",
     location: "Bekasi, Indonesia",
     description:
-      "Frontend application development using React, TypeScript, and REST API integration within a structured team.",
+      "Contributed to frontend application development using React, TypeScript, and REST API integration within a structured team environment.",
     responsibilities: [
-      "Build reusable frontend components",
-      "Develop responsive user interfaces",
-      "Integrate frontend applications with REST APIs",
-      "Debug and test application behavior",
-      "Improve maintainability and UI consistency",
+      "Built reusable frontend components using React and TypeScript",
+      "Developed responsive and consistent web interfaces",
+      "Integrated frontend features with REST APIs",
+      "Debugged and tested application behavior",
+      "Improved component maintainability and UI consistency",
+      "Collaborated within a structured team development workflow",
     ],
+    technologies: ["React", "TypeScript", "REST API"],
     projectsInvolved: [
       {
         name: "Crowdfunding Platform",

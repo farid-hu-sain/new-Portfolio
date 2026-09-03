@@ -4,7 +4,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUpRight, X } from "lucide-react";
 import { type PortfolioProject } from "../../data/projects";
 import { GithubIcon } from "./BrandIcons";
-import { PROJECT_ACCENTS, ProjectVisual } from "./ProjectVisuals";
+import { ProjectVisual } from "./ProjectVisuals";
+import { PROJECT_ACCENTS } from "./projectAccents";
 import { TechTag } from "./SectionHeader";
 
 type ProjectDetailModalProps = {
@@ -14,22 +15,46 @@ type ProjectDetailModalProps = {
 
 export default function ProjectDetailModal({ project, onClose }: ProjectDetailModalProps) {
   const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!project) return;
 
     const previousOverflow = document.body.style.overflow;
+    const previouslyFocused = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     document.body.style.overflow = "hidden";
     closeButtonRef.current?.focus();
 
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") onClose();
+      if (event.key === "Escape") {
+        onClose();
+        return;
+      }
+
+      if (event.key !== "Tab") return;
+
+      const focusable = dialogRef.current?.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+      );
+      if (!focusable?.length) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
     };
 
     window.addEventListener("keydown", handleKeyDown);
     return () => {
       document.body.style.overflow = previousOverflow;
       window.removeEventListener("keydown", handleKeyDown);
+      previouslyFocused?.focus();
     };
   }, [project, onClose]);
 
@@ -49,6 +74,7 @@ export default function ProjectDetailModal({ project, onClose }: ProjectDetailMo
           <div className="absolute inset-0 bg-bg/85 backdrop-blur-md" aria-hidden="true" />
 
           <motion.div
+            ref={dialogRef}
             role="dialog"
             aria-modal="true"
             aria-labelledby="project-detail-title"
@@ -90,11 +116,11 @@ export default function ProjectDetailModal({ project, onClose }: ProjectDetailMo
 
               <div>
                 <div className="flex flex-wrap items-center gap-2 mb-5">
-                  <span className={`px-3 py-1 rounded-md border ${PROJECT_ACCENTS[project.accent].border} ${PROJECT_ACCENTS[project.accent].bg} ${PROJECT_ACCENTS[project.accent].text} font-mono text-[11px] uppercase tracking-wider`}>
+                  <span className={`px-3 py-1 rounded-md border ${PROJECT_ACCENTS[project.accent].border} ${PROJECT_ACCENTS[project.accent].bg} ${PROJECT_ACCENTS[project.accent].text} font-mono text-xs uppercase tracking-wider`}>
                     {project.category}
                   </span>
                   {project.status && (
-                    <span className="px-3 py-1 rounded-md border border-line text-ink-secondary font-mono text-[11px] uppercase tracking-wider">
+                    <span className="px-3 py-1 rounded-md border border-line text-ink-secondary font-mono text-xs uppercase tracking-wider">
                       {project.status}
                     </span>
                   )}
@@ -109,18 +135,18 @@ export default function ProjectDetailModal({ project, onClose }: ProjectDetailMo
 
                 {project.role && (
                   <div className="mt-7 pb-7 border-b border-line">
-                    <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink-muted mb-2">My role</p>
+                    <p className="font-mono text-xs uppercase tracking-[0.16em] text-ink-muted mb-2">My role</p>
                     <p className="text-sm font-medium text-ink-primary">{project.role}</p>
                   </div>
                 )}
 
                 <div className="mt-7">
-                  <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink-muted mb-3">About the project</p>
+                  <p className="font-mono text-xs uppercase tracking-[0.16em] text-ink-muted mb-3">About the project</p>
                   <p className="text-sm sm:text-base leading-relaxed text-ink-secondary">{project.details}</p>
                 </div>
 
                 <div className="mt-7">
-                  <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink-muted mb-3">Key features</p>
+                  <p className="font-mono text-xs uppercase tracking-[0.16em] text-ink-muted mb-3">Key features</p>
                   <ul className="grid gap-3 sm:grid-cols-2">
                     {project.highlights.map((highlight) => (
                       <li key={highlight} className="flex gap-3 text-sm leading-relaxed text-ink-secondary">
@@ -132,7 +158,7 @@ export default function ProjectDetailModal({ project, onClose }: ProjectDetailMo
                 </div>
 
                 <div className="mt-8">
-                  <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink-muted mb-3">Technology stack</p>
+                  <p className="font-mono text-xs uppercase tracking-[0.16em] text-ink-muted mb-3">Technology stack</p>
                   <div className="flex flex-wrap gap-2">
                     {project.technologies.map((technology) => (
                       <TechTag key={technology}>{technology}</TechTag>

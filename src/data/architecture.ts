@@ -1,39 +1,50 @@
-export const architectureKnowledge = [
-  "MVVM",
-  "Repository Pattern",
-  "Clean Architecture",
-  "Dependency Injection",
-  "REST API Architecture",
-];
+export type ArchitectureStageId = "client" | "api" | "backend" | "data";
 
-export interface ArchNode {
-  id: string;
+export interface ArchitectureStage {
+  id: ArchitectureStageId;
   label: string;
-  detail: string[];
+  summary: string;
+  technologies: string[];
+  responsibilities: string[];
 }
 
-export const archStages: ArchNode[][] = [
-  [{ id: "ui", label: "Compose UI", detail: ["Declarative UI", "Recomposition on state change"] }],
-  [
-    { id: "ui", label: "Compose UI", detail: ["Declarative UI", "Recomposition on state change"] },
-    { id: "vm", label: "ViewModel", detail: ["StateFlow", "UI State", "Business logic coordination"] },
-  ],
-  [
-    { id: "ui", label: "Compose UI", detail: ["Declarative UI", "Recomposition on state change"] },
-    { id: "vm", label: "ViewModel", detail: ["StateFlow", "UI State", "Business logic coordination"] },
-    { id: "repo", label: "Repository", detail: ["Data abstraction", "Remote / local source"] },
-  ],
-  [
-    { id: "ui", label: "Compose UI", detail: ["Declarative UI", "Recomposition on state change"] },
-    { id: "vm", label: "ViewModel", detail: ["StateFlow", "UI State", "Business logic coordination"] },
-    { id: "repo", label: "Repository", detail: ["Data abstraction", "Remote / local source"] },
-    { id: "api", label: "Remote API", detail: ["Retrofit", "REST API"] },
-    { id: "local", label: "Local Storage", detail: ["DataStore", "Local storage"] },
-  ],
+export const architectureStages: ArchitectureStage[] = [
+  {
+    id: "client",
+    label: "Frontend / Mobile",
+    summary: "User-facing experiences for web and mobile products.",
+    technologies: ["React", "React Native", "Jetpack Compose", "Flutter"],
+    responsibilities: ["Responsive interfaces", "Application state", "User experience"],
+  },
+  {
+    id: "api",
+    label: "API Layer",
+    summary: "Clear contracts connecting clients to application services.",
+    technologies: ["REST API", "Retrofit", "Dio"],
+    responsibilities: ["Request and response models", "Authentication flow", "Error handling"],
+  },
+  {
+    id: "backend",
+    label: "Backend / Business Logic",
+    summary: "Services that coordinate application rules and secure data access.",
+    technologies: ["NestJS", "Express.js", "Node.js"],
+    responsibilities: ["Business logic", "Authorization", "Service boundaries"],
+  },
+  {
+    id: "data",
+    label: "Database / Data",
+    summary: "Relational and application data designed around product requirements.",
+    technologies: ["PostgreSQL", "Prisma", "Supabase"],
+    responsibilities: ["Data modeling", "Persistence", "Reliable data flow"],
+  },
 ];
 
-export const stateManagement = [
-  { platform: "Android", tools: ["ViewModel", "StateFlow", "Compose State"] },
-  { platform: "Flutter", tools: ["Riverpod"] },
-  { platform: "React", tools: ["Context API", "Redux Toolkit"] },
+export const engineeringPrinciples = [
+  "Separation of concerns",
+  "Repository pattern",
+  "Dependency injection",
+  "State management",
+  "Authentication",
+  "Error handling",
+  "Maintainability",
 ];

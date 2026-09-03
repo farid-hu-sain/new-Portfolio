@@ -5,7 +5,7 @@ import { StaggerContainer, StaggerItem } from "../components/ui/Stagger";
 
 export default function Certificates() {
   return (
-    <section className="border-t border-line px-5 sm:px-8 py-24 sm:py-32">
+    <section id="certificates" className="border-t border-line px-5 sm:px-8 py-24 sm:py-32">
       <div className="max-w-content mx-auto">
         <SectionHeader
           eyebrow="Certificates"
@@ -19,12 +19,14 @@ export default function Certificates() {
         >
           {certificates.map((cert) => (
             <StaggerItem key={cert.title} className="h-full">
-              <div className="group h-full p-6 rounded-xl border border-line bg-surface/40 hover:-translate-y-1 hover:border-accent/30 transition-all duration-200">
+              <div className="group flex h-full flex-col p-6 rounded-xl border border-line bg-surface/40 hover:-translate-y-1 hover:border-accent/30 transition-all duration-200">
                 {cert.image && (
                   <div className="mb-5 flex aspect-[4/3] items-center justify-center overflow-hidden rounded-lg border border-line bg-white">
                     <img
                       src={cert.image}
                       alt={`${cert.title} certificate issued by ${cert.issuer}`}
+                      width={cert.imageWidth}
+                      height={cert.imageHeight}
                       loading="lazy"
                       className="block h-full w-full object-contain"
                     />
@@ -35,7 +37,7 @@ export default function Certificates() {
                     <Award size={18} className="text-accent" />
                   </div>
                   {cert.status && (
-                    <span className="px-2.5 py-1 rounded-md border border-accent/25 bg-accent/10 font-mono text-[10px] uppercase tracking-wider text-accent">
+                    <span className="px-2.5 py-1 rounded-md border border-accent/25 bg-accent/10 font-mono text-xs uppercase tracking-wider text-accent">
                       {cert.status}
                     </span>
                   )}
@@ -51,15 +53,22 @@ export default function Certificates() {
                     </span>
                   ))}
                 </div>
-                {cert.credentialUrl && (
-                  <a
-                    href={cert.credentialUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-1 text-sm text-ink-primary hover:text-accent transition-colors"
-                  >
-                    View Credential <ArrowUpRight size={14} />
-                  </a>
+                {(cert.credentialId || cert.credentialUrl) && (
+                  <div className="mt-auto pt-1">
+                    {cert.credentialId && (
+                      <p className="mb-2 font-mono text-xs text-ink-muted">Credential ID: {cert.credentialId}</p>
+                    )}
+                    {cert.credentialUrl && (
+                      <a
+                        href={cert.credentialUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-1 text-sm text-ink-primary hover:text-accent transition-colors"
+                      >
+                        View Credential <ArrowUpRight size={14} />
+                      </a>
+                    )}
+                  </div>
                 )}
               </div>
             </StaggerItem>

@@ -38,20 +38,6 @@ export default {
       maxWidth: {
         content: "1200px",
       },
-      animation: {
-        "marquee-left": "marqueeLeft 40s linear infinite",
-        "marquee-right": "marqueeRight 40s linear infinite",
-      },
-      keyframes: {
-        marqueeLeft: {
-          from: { transform: "translateX(0)" },
-          to: { transform: "translateX(-50%)" },
-        },
-        marqueeRight: {
-          from: { transform: "translateX(-50%)" },
-          to: { transform: "translateX(0)" },
-        },
-      },
     },
   },
   plugins: [],

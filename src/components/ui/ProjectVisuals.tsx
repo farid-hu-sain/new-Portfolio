@@ -1,50 +1,5 @@
 import { type PortfolioProject } from "../../data/projects";
-
-export const PROJECT_ACCENTS: Record<
-  PortfolioProject["accent"],
-  { text: string; border: string; bg: string; bgStrong: string; bgSolid: string; hoverBg: string; glow: string; solid: string }
-> = {
-  green: {
-    text: "text-accent",
-    border: "border-accent/30",
-    bg: "bg-accent/10",
-    bgStrong: "bg-accent/70",
-    bgSolid: "bg-accent",
-    hoverBg: "hover:bg-accent/10",
-    glow: "rgba(61,220,132,0.18)",
-    solid: "#3DDC84",
-  },
-  violet: {
-    text: "text-violet-400",
-    border: "border-violet-400/30",
-    bg: "bg-violet-400/10",
-    bgStrong: "bg-violet-400/70",
-    bgSolid: "bg-violet-400",
-    hoverBg: "hover:bg-violet-400/10",
-    glow: "rgba(167,139,250,0.18)",
-    solid: "#A78BFA",
-  },
-  blue: {
-    text: "text-sky-400",
-    border: "border-sky-400/30",
-    bg: "bg-sky-400/10",
-    bgStrong: "bg-sky-400/70",
-    bgSolid: "bg-sky-400",
-    hoverBg: "hover:bg-sky-400/10",
-    glow: "rgba(56,189,248,0.18)",
-    solid: "#38BDF8",
-  },
-  teal: {
-    text: "text-teal-400",
-    border: "border-teal-400/30",
-    bg: "bg-teal-400/10",
-    bgStrong: "bg-teal-400/70",
-    bgSolid: "bg-teal-400",
-    hoverBg: "hover:bg-teal-400/10",
-    glow: "rgba(45,212,191,0.18)",
-    solid: "#2DD4BF",
-  },
-};
+import { PROJECT_ACCENTS } from "./projectAccents";
 
 function DotGrid({ color }: { color: string }) {
   return (
@@ -73,6 +28,8 @@ export function MobileProjectVisual({ project }: { project: PortfolioProject }) 
           <img
             src={project.image}
             alt={`${project.title} application screenshot`}
+            width={project.imageWidth}
+            height={project.imageHeight}
             className="block aspect-[9/19] w-full object-cover object-top"
           />
         ) : (
@@ -130,6 +87,8 @@ export function WebProjectVisual({ project }: { project: PortfolioProject }) {
           <img
             src={project.image}
             alt={`${project.title} website screenshot`}
+            width={project.imageWidth}
+            height={project.imageHeight}
             className="block aspect-[15/8] w-full object-cover object-top"
           />
         ) : (
@@ -210,4 +169,33 @@ export function ProjectVisual({ project }: { project: PortfolioProject }) {
   if (project.visualType === "mobile") return <MobileProjectVisual project={project} />;
   if (project.visualType === "web") return <WebProjectVisual project={project} />;
   return <BackendProjectVisual project={project} />;
+}
+
+export function ProjectPreview({ project }: { project: PortfolioProject }) {
+  const accent = PROJECT_ACCENTS[project.accent];
+
+  if (project.image) {
+    return (
+      <div className="relative aspect-[16/10] overflow-hidden bg-bg/50">
+        <img
+          src={project.image}
+          alt={`${project.title} project preview`}
+          width={project.imageWidth}
+          height={project.imageHeight}
+          loading="lazy"
+          className="h-full w-full object-cover object-top"
+        />
+        <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-surface to-transparent" />
+        <div aria-hidden="true" className="absolute inset-0" style={{ boxShadow: `inset 0 0 70px ${accent.glow}` }} />
+      </div>
+    );
+  }
+
+  return (
+    <div className="relative flex aspect-[16/10] items-center justify-center overflow-hidden bg-bg/45 p-5">
+      <div className="w-full origin-center scale-[0.82] sm:scale-90">
+        <ProjectVisual project={project} />
+      </div>
+    </div>
+  );
 }

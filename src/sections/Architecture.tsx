@@ -1,181 +1,105 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
-import { architectureKnowledge, stateManagement } from "../data/architecture";
-import { SectionHeader } from "../components/ui/SectionHeader";
+import { AnimatePresence, motion } from "framer-motion";
+import { ArrowDown, ArrowRight } from "lucide-react";
+import {
+  architectureStages,
+  engineeringPrinciples,
+  type ArchitectureStageId,
+} from "../data/architecture";
+import { SectionHeader, TechTag } from "../components/ui/SectionHeader";
 import Reveal from "../components/ui/Reveal";
-import { StaggerContainer, StaggerItem } from "../components/ui/Stagger";
-
-type NodeId = "ui" | "vm" | "repo" | "api" | "local";
-
-const nodeDetails: Record<NodeId, { label: string; points: string[] }> = {
-  ui: { label: "Compose UI", points: ["Declarative UI", "Recomposition on state change"] },
-  vm: { label: "ViewModel", points: ["StateFlow", "UI State", "Business logic coordination"] },
-  repo: { label: "Repository", points: ["Data abstraction", "Remote / local source"] },
-  api: { label: "Remote API", points: ["Retrofit", "REST API"] },
-  local: { label: "Local Storage", points: ["DataStore", "Local storage"] },
-};
-
-function DiagramNode({
-  id,
-  label,
-  x,
-  y,
-  w,
-  active,
-  onSelect,
-  delay,
-}: {
-  id: NodeId;
-  label: string;
-  x: number;
-  y: number;
-  w: number;
-  active: boolean;
-  onSelect: (id: NodeId) => void;
-  delay: number;
-}) {
-  return (
-    <motion.g
-      initial={{ opacity: 0, scale: 0.9 }}
-      whileInView={{ opacity: 1, scale: 1 }}
-      viewport={{ once: true, amount: 0.5 }}
-      transition={{ duration: 0.4, delay }}
-      onClick={() => onSelect(id)}
-      className="cursor-pointer"
-      role="button"
-      aria-label={`View details for ${label}`}
-      tabIndex={0}
-    >
-      <rect
-        x={x}
-        y={y}
-        width={w}
-        height={44}
-        rx={8}
-        fill={active ? "rgba(61,220,132,0.12)" : "#121513"}
-        stroke={active ? "#3DDC84" : "rgba(255,255,255,0.08)"}
-        strokeWidth={1.5}
-      />
-      <text
-        x={x + w / 2}
-        y={y + 27}
-        textAnchor="middle"
-        fill={active ? "#3DDC84" : "#F5F7F5"}
-        fontSize="13"
-        fontFamily="JetBrains Mono, monospace"
-      >
-        {label}
-      </text>
-    </motion.g>
-  );
-}
 
 export default function Architecture() {
-  const [selected, setSelected] = useState<NodeId>("vm");
-  const detail = nodeDetails[selected];
+  const [selected, setSelected] = useState<ArchitectureStageId>("client");
+  const activeStage = architectureStages.find((stage) => stage.id === selected) ?? architectureStages[0];
 
   return (
-    <section className="border-t border-line px-5 sm:px-8 py-24 sm:py-32">
+    <section id="architecture" className="border-t border-line px-5 py-24 sm:px-8 sm:py-32">
       <div className="max-w-content mx-auto">
         <SectionHeader
-          eyebrow="Architecture"
-          title="Architecture & State Management"
-          description="I care about how applications are structured, how state flows through the UI, and how data moves between layers."
+          eyebrow="Application Architecture"
+          title="How I Structure Applications"
+          description="A general view of how I separate user experiences, API contracts, business logic, and data. Each project uses only the layers and tools it needs."
         />
 
-        <Reveal className="flex flex-wrap gap-2 mb-14">
-          {architectureKnowledge.map((k) => (
-            <span key={k} className="px-3 py-1.5 rounded-md border border-line bg-surface text-sm text-ink-secondary">
-              {k}
+        <Reveal>
+          <div className="grid gap-3 lg:grid-cols-4" aria-label="Application architecture layers">
+            {architectureStages.map((stage, index) => {
+              const isActive = stage.id === selected;
+
+              return (
+                <div key={stage.id} className="relative flex flex-col lg:block">
+                  <button
+                    type="button"
+                    onClick={() => setSelected(stage.id)}
+                    aria-pressed={isActive}
+                    className={`w-full min-h-40 rounded-xl border p-5 text-left transition-colors ${
+                      isActive
+                        ? "border-accent/60 bg-accent/10"
+                        : "border-line bg-surface/50 hover:border-accent/30 hover:bg-surface"
+                    }`}
+                  >
+                    <span className={`font-mono text-xs ${isActive ? "text-accent" : "text-ink-muted"}`}>
+                      0{index + 1}
+                    </span>
+                    <h3 className="mt-7 text-base font-semibold text-ink-primary">{stage.label}</h3>
+                    <p className="mt-2 text-sm leading-relaxed text-ink-secondary">{stage.summary}</p>
+                  </button>
+
+                  {index < architectureStages.length - 1 && (
+                    <>
+                      <ArrowDown aria-hidden="true" size={16} className="mx-auto my-1 text-accent lg:hidden" />
+                      <ArrowRight aria-hidden="true" size={16} className="absolute -right-3 top-1/2 z-10 hidden -translate-y-1/2 text-accent lg:block" />
+                    </>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.12} className="mt-6">
+          <div className="rounded-xl border border-line bg-surface/60 p-6 sm:p-8 min-h-56">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeStage.id}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.2 }}
+              >
+                <p className="font-mono text-xs uppercase tracking-[0.16em] text-accent">Selected layer</p>
+                <div className="mt-4 grid gap-7 md:grid-cols-2">
+                  <div>
+                    <h3 className="text-xl font-semibold text-ink-primary">{activeStage.label}</h3>
+                    <p className="mt-2 text-sm leading-relaxed text-ink-secondary">{activeStage.summary}</p>
+                    <div className="mt-5 flex flex-wrap gap-2">
+                      {activeStage.technologies.map((technology) => (
+                        <TechTag key={technology}>{technology}</TechTag>
+                      ))}
+                    </div>
+                  </div>
+                  <ul className="space-y-3">
+                    {activeStage.responsibilities.map((responsibility) => (
+                      <li key={responsibility} className="flex gap-3 text-sm text-ink-secondary">
+                        <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
+                        {responsibility}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.18} className="mt-8 flex flex-wrap gap-2">
+          {engineeringPrinciples.map((principle) => (
+            <span key={principle} className="rounded-md border border-line bg-surface/40 px-3 py-2 text-sm text-ink-secondary">
+              {principle}
             </span>
           ))}
         </Reveal>
-
-        <div className="grid lg:grid-cols-[1.3fr_1fr] gap-10 items-start mb-16">
-          {/* diagram */}
-          <Reveal>
-            <svg viewBox="0 0 420 300" className="w-full h-auto">
-              {/* connectors */}
-              <motion.path
-                d="M 190 44 L 190 84"
-                stroke="#3DDC84"
-                strokeWidth="1.5"
-                fill="none"
-                initial={{ pathLength: 0 }}
-                whileInView={{ pathLength: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-              />
-              <motion.path
-                d="M 190 128 L 190 168"
-                stroke="#3DDC84"
-                strokeWidth="1.5"
-                fill="none"
-                initial={{ pathLength: 0 }}
-                whileInView={{ pathLength: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.4 }}
-              />
-              <motion.path
-                d="M 190 212 C 190 234, 100 234, 100 256"
-                stroke="#3DDC84"
-                strokeWidth="1.5"
-                fill="none"
-                initial={{ pathLength: 0 }}
-                whileInView={{ pathLength: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.6 }}
-              />
-              <motion.path
-                d="M 190 212 C 190 234, 290 234, 290 256"
-                stroke="#3DDC84"
-                strokeWidth="1.5"
-                fill="none"
-                initial={{ pathLength: 0 }}
-                whileInView={{ pathLength: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.65 }}
-              />
-
-              <DiagramNode id="ui" label="Compose UI" x={100} y={0} w={180} active={selected === "ui"} onSelect={setSelected} delay={0} />
-              <DiagramNode id="vm" label="ViewModel · StateFlow" x={70} y={84} w={240} active={selected === "vm"} onSelect={setSelected} delay={0.25} />
-              <DiagramNode id="repo" label="Repository" x={100} y={168} w={180} active={selected === "repo"} onSelect={setSelected} delay={0.45} />
-              <DiagramNode id="api" label="Remote API" x={20} y={256} w={160} active={selected === "api"} onSelect={setSelected} delay={0.65} />
-              <DiagramNode id="local" label="Local Storage" x={210} y={256} w={160} active={selected === "local"} onSelect={setSelected} delay={0.7} />
-            </svg>
-          </Reveal>
-
-          {/* detail panel */}
-          <Reveal delay={0.15} className="p-6 rounded-xl border border-line bg-surface/60 min-h-[180px]">
-            <p className="font-mono text-xs uppercase tracking-wider text-accent mb-3">
-              {detail.label}
-            </p>
-            <ul className="space-y-2">
-              {detail.points.map((p) => (
-                <li key={p} className="text-sm text-ink-secondary leading-relaxed pl-4 relative before:content-['—'] before:absolute before:left-0 before:text-ink-muted">
-                  {p}
-                </li>
-              ))}
-            </ul>
-            <p className="text-xs text-ink-muted mt-6">Click a node in the diagram to inspect it.</p>
-          </Reveal>
-        </div>
-
-        {/* state management by platform */}
-        <StaggerContainer className="grid sm:grid-cols-3 gap-4">
-          {stateManagement.map((s) => (
-            <StaggerItem key={s.platform}>
-              <div className="p-5 rounded-lg border border-line bg-surface/40">
-                <p className="font-mono text-xs uppercase tracking-wider text-accent mb-3">{s.platform}</p>
-                <ul className="space-y-1.5">
-                  {s.tools.map((t) => (
-                    <li key={t} className="text-sm text-ink-primary">{t}</li>
-                  ))}
-                </ul>
-              </div>
-            </StaggerItem>
-          ))}
-        </StaggerContainer>
       </div>
     </section>
   );

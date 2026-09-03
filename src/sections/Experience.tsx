@@ -48,6 +48,14 @@ export default function Experience() {
                 {e.description}
               </p>
 
+              <div className="flex flex-wrap gap-2 mb-6">
+                {e.technologies.map((technology) => (
+                  <TechTag key={technology} className="border-accent/25 bg-accent/10 text-ink-primary">
+                    {technology}
+                  </TechTag>
+                ))}
+              </div>
+
               <ul className="space-y-1.5 mb-6">
                 {e.responsibilities.map((r, j) => (
                   <li

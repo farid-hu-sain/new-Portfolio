@@ -48,8 +48,8 @@ export default function Contact() {
 
         <Reveal delay={0.4} className="max-w-2xl mt-8 mb-12 sm:mb-16">
           <p className="text-ink-secondary text-base sm:text-lg leading-relaxed">
-            I'm open to opportunities in Android &amp; Mobile Development,
-            software engineering roles, and interesting collaborations.
+            I'm currently open to opportunities as a Fullstack Developer,
+            Software Engineer, Android Developer, or Mobile Developer.
           </p>
         </Reveal>
 
@@ -61,17 +61,17 @@ export default function Contact() {
             />
 
             <div className="p-6 sm:p-9 md:p-12">
-              <div className="flex items-center gap-3 font-mono text-[11px] sm:text-xs uppercase tracking-[0.16em] text-accent">
+              <div className="flex items-center gap-3 font-mono text-xs uppercase tracking-[0.16em] text-accent">
                 <span className="relative flex h-2.5 w-2.5">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-40 motion-reduce:animate-none" />
                   <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-accent" />
                 </span>
-                Available for opportunities
+                {profile.status}
               </div>
 
               <p className="mt-9 sm:mt-12 max-w-xl text-2xl sm:text-3xl md:text-4xl font-medium leading-tight tracking-tight text-ink-primary">
                 Have a project, opportunity,
-                <br className="hidden sm:block" /> or just want to talk tech?
+                <br className="hidden sm:block" /> or want to talk about software development?
               </p>
 
               <div className="mt-10 sm:mt-14 pt-6 border-t border-line flex flex-col sm:flex-row sm:items-center justify-between gap-5">
@@ -135,9 +135,6 @@ export default function Contact() {
           <div className="mt-12 sm:mt-16 pt-6 border-t border-line grid gap-2 sm:grid-cols-2 text-sm">
             <p className="text-ink-secondary">{profile.location}</p>
             <p className="text-ink-secondary sm:text-right">GMT +7</p>
-            <p className="text-xs text-ink-muted sm:col-span-2">
-              Usually responds within 24–48 hours
-            </p>
           </div>
         </Reveal>
       </div>

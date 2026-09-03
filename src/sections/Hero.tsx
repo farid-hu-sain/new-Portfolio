@@ -1,10 +1,11 @@
 import { motion } from "framer-motion";
-import { ArrowUpRight, FileDown } from "lucide-react";
+import { FileDown } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "../components/ui/BrandIcons";
 import { profile } from "../data/profile";
 import TextReveal from "../components/ui/TextReveal";
+import Button from "../components/ui/Button";
 
-const badges = ["Kotlin", "Compose", "Android", "Flutter"];
+const badges = ["React", "TypeScript", "NestJS", "PostgreSQL"];
 
 export default function Hero() {
   const scrollTo = (id: string) =>
@@ -32,11 +33,20 @@ export default function Hero() {
           </h1>
 
           <TextReveal
-            lines={["Android & Mobile Developer"]}
-            className="mb-7"
-            lineClassName="text-xl sm:text-2xl font-medium text-accent"
+            lines={[profile.role]}
+            className="mb-4"
+            lineClassName="text-2xl sm:text-3xl font-medium text-accent"
             delayStart={0.35}
           />
+
+          <motion.p
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.48 }}
+            className="mb-7 font-mono text-xs sm:text-sm leading-relaxed text-ink-primary"
+          >
+            React <span className="text-ink-muted">•</span> TypeScript <span className="text-ink-muted">•</span> NestJS <span className="text-ink-muted">•</span> PostgreSQL <span className="text-ink-muted">•</span> Mobile Development
+          </motion.p>
 
           <motion.p
             initial={{ opacity: 0, y: 16 }}
@@ -45,9 +55,9 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.5 }}
             className="text-ink-secondary text-base sm:text-lg leading-relaxed max-w-xl mb-3"
           >
-            I build modern mobile applications with a strong focus on clean
-            architecture, maintainable code, scalable application structure,
-            and user experience.
+            I build web, backend, and mobile applications with a focus on
+            maintainable architecture, clean code, reliable APIs, and
+            user-focused experiences.
           </motion.p>
           <motion.p
             initial={{ opacity: 0, y: 16 }}
@@ -56,9 +66,9 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.6 }}
             className="text-ink-secondary text-base sm:text-lg leading-relaxed max-w-xl mb-8"
           >
-            My primary focus is Android development using Kotlin and Jetpack
-            Compose, with additional experience in Flutter, frontend
-            development, backend systems, and REST API integration.
+            My work spans React and TypeScript frontends, Node.js and NestJS
+            backend services, PostgreSQL databases, and mobile development
+            using Kotlin, Flutter, and React Native.
           </motion.p>
 
           <motion.div
@@ -84,24 +94,24 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.8 }}
             className="flex flex-wrap items-center gap-4"
           >
-            <button
+            <Button
               onClick={() => scrollTo("projects")}
-              className="group inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-accent text-bg text-sm font-medium hover:bg-accent/90 transition-colors"
+              icon
             >
-              View My Projects
-              <ArrowUpRight size={16} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </button>
-            <a
-              href="#"
-              className="inline-flex items-center gap-2 px-5 py-3 rounded-lg border border-line text-ink-primary text-sm font-medium hover:border-accent/50 hover:bg-surface transition-colors"
+              View Projects
+            </Button>
+            <Button
+              href={profile.cv}
+              download
+              variant="secondary"
             >
-              <FileDown size={16} /> Download Resume
-            </a>
+              <FileDown size={16} /> Download CV
+            </Button>
             <div className="flex items-center gap-3 ml-1">
-              <a href={profile.github} aria-label="GitHub" className="text-ink-secondary hover:text-accent transition-colors">
+              <a href={profile.github} target="_blank" rel="noreferrer" aria-label="GitHub" className="text-ink-secondary hover:text-accent transition-colors">
                 <GithubIcon size={19} />
               </a>
-              <a href={profile.linkedin} aria-label="LinkedIn" className="text-ink-secondary hover:text-accent transition-colors">
+              <a href={profile.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn" className="text-ink-secondary hover:text-accent transition-colors">
                 <LinkedinIcon size={19} />
               </a>
             </div>
@@ -123,6 +133,8 @@ export default function Hero() {
             <img
               src="/profile/muhammad-farid-husain.png"
               alt="Portrait of Muhammad Farid Husain"
+              width={1254}
+              height={1254}
               className="h-full w-full object-cover object-center"
             />
           </div>

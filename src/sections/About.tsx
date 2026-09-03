@@ -1,83 +1,63 @@
-import { useRef } from "react";
-import { motion, useScroll, useTransform, type MotionValue } from "framer-motion";
+import Reveal from "../components/ui/Reveal";
+import { StaggerContainer, StaggerItem } from "../components/ui/Stagger";
 
-const sentences = [
+const journey = [
   "I started by learning how software works.",
-  "Then I started building applications.",
-  "Mobile development became the area I wanted to explore deeper.",
-  "Today I focus primarily on Android.",
+  "Then I started building web and mobile applications.",
+  "I expanded into backend systems and databases.",
+  "Today I build across the full application stack.",
 ];
 
-function clamp01(n: number) {
-  return Math.min(1, Math.max(0, n));
-}
-
-function StoryLine({ text, progress, index, total }: { text: string; progress: MotionValue<number>; index: number; total: number }) {
-  const start = index / total;
-  const end = (index + 1) / total;
-  const range: [number, number, number, number] = [
-    clamp01(start - 0.08),
-    clamp01(start + 0.05),
-    clamp01(end - 0.05),
-    clamp01(end + 0.08),
-  ];
-  // ensure strictly non-decreasing after clamping
-  for (let i = 1; i < range.length; i++) {
-    if (range[i] < range[i - 1]) range[i] = range[i - 1];
-  }
-  const opacity = useTransform(progress, range, [0.25, 1, 1, 0.3]);
-
-  return (
-    <motion.p style={{ opacity }} className="text-2xl sm:text-3xl md:text-4xl font-medium leading-snug text-ink-primary mb-8">
-      {text}
-    </motion.p>
-  );
-}
-
 export default function About() {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end end"],
-  });
-
   return (
-    <section id="about" className="relative border-t border-line">
-      <div className="max-w-content mx-auto px-5 sm:px-8 pt-24 pb-8">
-        <p className="font-mono text-xs uppercase tracking-[0.2em] text-accent mb-4">About</p>
-        <h2 className="text-display-sm sm:text-display font-semibold text-ink-primary max-w-2xl mb-6">
-          My Journey Into Software Development
-        </h2>
-        <p className="text-ink-secondary text-base sm:text-lg leading-relaxed max-w-2xl">
-          Along the way I've explored Android, Flutter, React, backend
-          development, and database design — and increasingly focused on
-          Android &amp; Mobile Development. My interest isn't only in writing
-          UI, but in understanding application structure, state, repository
-          patterns, APIs, authentication, and data flow.
-        </p>
+    <section id="about" className="relative border-t border-line px-5 py-24 sm:px-8 sm:py-32 overflow-hidden">
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 opacity-[0.035] font-mono text-xs leading-6 whitespace-pre pointer-events-none select-none px-5 sm:px-8 pt-16"
+      >
+{`interface Application {
+  client: Web | Mobile
+  api: REST
+  service: Backend
+  data: Database
+}`}
       </div>
 
-      <div ref={ref} className="relative h-[220vh]">
-        <div className="sticky top-0 h-screen flex items-center overflow-hidden">
-          <div
-            aria-hidden="true"
-            className="absolute inset-0 opacity-[0.05] font-mono text-xs leading-6 whitespace-pre pointer-events-none select-none px-5 sm:px-8 pt-10"
-          >
-{`fun buildSoftware() {
-    understand()
-    design()
-    build()
-    test()
-    improve()
-}`}
-          </div>
-          <div className="max-w-content mx-auto px-5 sm:px-8 w-full">
-            <div className="max-w-2xl">
-              {sentences.map((s, i) => (
-                <StoryLine key={i} text={s} progress={scrollYProgress} index={i} total={sentences.length} />
-              ))}
+      <div className="relative max-w-content mx-auto">
+        <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
+          <Reveal>
+            <p className="font-mono text-xs uppercase tracking-[0.2em] text-accent mb-4">About</p>
+            <h2 className="text-display-sm sm:text-display font-semibold text-ink-primary mb-6">
+              Building Across the Application Stack
+            </h2>
+            <div className="space-y-4 text-ink-secondary text-base leading-relaxed">
+              <p>
+                I am a Fullstack Developer with experience building web, backend, and mobile applications using React, TypeScript, NestJS, PostgreSQL, Kotlin, Flutter, and React Native.
+              </p>
+              <p>
+                During my professional experience, I contributed to SIMAS and a Crowdfunding Platform by building reusable frontend components, responsive interfaces, REST API integrations, and application improvements within a team environment.
+              </p>
+              <p>
+                Beyond professional work, I build projects across frontend, backend, databases, Android, and Flutter to deepen my understanding of architecture, API design, authentication, state management, and maintainable development.
+              </p>
+              <p className="text-ink-primary">
+                My goal is to become a well-rounded Software Engineer capable of contributing across the full application lifecycle.
+              </p>
             </div>
-          </div>
+          </Reveal>
+
+          <StaggerContainer className="grid gap-3 sm:grid-cols-2" staggerDelay={0.1}>
+            {journey.map((item, index) => (
+              <StaggerItem key={item} className="h-full">
+                <div className="h-full rounded-xl border border-line bg-surface/60 p-5 sm:p-6">
+                  <span className="font-mono text-xs text-accent">0{index + 1}</span>
+                  <p className="mt-8 text-lg sm:text-xl font-medium leading-snug text-ink-primary">
+                    {item}
+                  </p>
+                </div>
+              </StaggerItem>
+            ))}
+          </StaggerContainer>
         </div>
       </div>
     </section>

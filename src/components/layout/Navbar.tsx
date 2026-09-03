@@ -7,6 +7,7 @@ const NAV_ITEMS = [
   { id: "experience", label: "Experience" },
   { id: "skills", label: "Skills" },
   { id: "projects", label: "Projects" },
+  { id: "certificates", label: "Certificates" },
   { id: "contact", label: "Contact" },
 ];
 
@@ -20,6 +21,17 @@ export default function Navbar() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  useEffect(() => {
+    if (!mobileOpen) return;
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMobileOpen(false);
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [mobileOpen]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -43,6 +55,13 @@ export default function Navbar() {
   };
 
   return (
+    <>
+    <a
+      href="#main-content"
+      className="fixed left-4 top-3 z-[60] -translate-y-20 rounded-md bg-accent px-4 py-2 text-sm font-semibold text-bg transition-transform focus:translate-y-0"
+    >
+      Skip to content
+    </a>
     <header
       className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
         scrolled
@@ -52,6 +71,7 @@ export default function Navbar() {
     >
       <div className="max-w-content mx-auto px-5 sm:px-8 h-16 flex items-center justify-between">
         <button
+          type="button"
           onClick={() => scrollTo("hero")}
           className="font-mono text-sm font-semibold tracking-tight text-ink-primary"
         >
@@ -61,8 +81,10 @@ export default function Navbar() {
         <nav className="hidden md:flex items-center gap-1">
           {NAV_ITEMS.map((item) => (
             <button
+              type="button"
               key={item.id}
               onClick={() => scrollTo(item.id)}
+              aria-current={active === item.id ? "location" : undefined}
               className={`px-4 py-2 text-sm rounded-md transition-colors ${
                 active === item.id
                   ? "text-ink-primary"
@@ -75,15 +97,19 @@ export default function Navbar() {
         </nav>
 
         <button
+          type="button"
           onClick={() => scrollTo("contact")}
           className="hidden md:inline-flex items-center gap-1.5 text-sm font-medium text-ink-primary hover:text-accent transition-colors"
         >
-          Let's Talk <span aria-hidden="true">↗</span>
+          Contact Me <span aria-hidden="true">↗</span>
         </button>
 
         <button
+          type="button"
           onClick={() => setMobileOpen((o) => !o)}
           aria-label={mobileOpen ? "Close menu" : "Open menu"}
+          aria-expanded={mobileOpen}
+          aria-controls="mobile-navigation"
           className="md:hidden text-ink-primary"
         >
           {mobileOpen ? <X size={22} /> : <Menu size={22} />}
@@ -99,11 +125,13 @@ export default function Navbar() {
             transition={{ duration: 0.25 }}
             className="md:hidden overflow-hidden bg-bg border-b border-line"
           >
-            <nav className="px-5 py-4 flex flex-col gap-1">
+            <nav id="mobile-navigation" className="px-5 py-4 flex flex-col gap-1">
               {NAV_ITEMS.map((item) => (
                 <button
+                  type="button"
                   key={item.id}
                   onClick={() => scrollTo(item.id)}
+                  aria-current={active === item.id ? "location" : undefined}
                   className="text-left px-2 py-3 text-sm text-ink-secondary hover:text-ink-primary border-b border-line/50 last:border-0"
                 >
                   {item.label}
@@ -114,5 +142,6 @@ export default function Navbar() {
         )}
       </AnimatePresence>
     </header>
+    </>
   );
 }

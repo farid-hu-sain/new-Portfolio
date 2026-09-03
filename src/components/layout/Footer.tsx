@@ -16,13 +16,13 @@ export default function Footer() {
             MFH<span className="text-accent">.</span>
           </p>
           <p className="text-sm text-ink-secondary">{profile.name}</p>
-          <p className="text-xs text-ink-muted">{profile.role} · {profile.location}</p>
+          <p className="text-xs text-ink-muted">{profile.role} · {profile.secondaryRole} · {profile.location}</p>
         </div>
 
         <div className="flex flex-col sm:items-end gap-2">
           <div className="flex gap-4 text-sm">
-            <a href={profile.github} className="text-ink-secondary hover:text-accent transition-colors">GitHub</a>
-            <a href={profile.linkedin} className="text-ink-secondary hover:text-accent transition-colors">LinkedIn</a>
+            <a href={profile.github} target="_blank" rel="noreferrer" className="text-ink-secondary hover:text-accent transition-colors">GitHub</a>
+            <a href={profile.linkedin} target="_blank" rel="noreferrer" className="text-ink-secondary hover:text-accent transition-colors">LinkedIn</a>
           </div>
           <p className="text-xs text-ink-muted">© 2026 {profile.name}</p>
         </div>

@@ -8,6 +8,7 @@ type ButtonProps = {
   variant?: "primary" | "secondary" | "ghost";
   icon?: boolean;
   className?: string;
+  download?: boolean;
 };
 
 export default function Button({
@@ -17,6 +18,7 @@ export default function Button({
   variant = "primary",
   icon = false,
   className = "",
+  download = false,
 }: ButtonProps) {
   const base =
     "inline-flex items-center gap-2 px-5 py-3 rounded-lg text-sm font-medium transition-all duration-200";
@@ -40,14 +42,14 @@ export default function Button({
 
   if (href) {
     return (
-      <a href={href} className={`group ${base} ${variants[variant]} ${className}`}>
+      <a href={href} download={download || undefined} className={`group ${base} ${variants[variant]} ${className}`}>
         {content}
       </a>
     );
   }
 
   return (
-    <button onClick={onClick} className={`group ${base} ${variants[variant]} ${className}`}>
+    <button type="button" onClick={onClick} className={`group ${base} ${variants[variant]} ${className}`}>
       {content}
     </button>
   );

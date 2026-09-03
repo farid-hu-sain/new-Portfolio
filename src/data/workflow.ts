@@ -10,31 +10,31 @@ export const workflowSteps: WorkflowStep[] = [
     number: "01",
     title: "Understand",
     question: "What problem should this feature solve?",
-    points: ["Problem", "User need", "Feature requirements"],
+    points: ["User needs", "Requirements"],
   },
   {
     number: "02",
     title: "Plan",
-    points: ["Application flow", "Technology", "Data model", "API requirements", "Component structure"],
+    points: ["Application flow", "Data model", "API requirements", "Component structure"],
   },
   {
     number: "03",
     title: "Structure",
-    points: ["Architecture", "Application state", "Repository boundaries", "Dependencies", "Presentation / domain / data separation"],
+    points: ["Architecture", "State", "Dependencies", "Backend boundaries"],
   },
   {
     number: "04",
     title: "Build",
-    points: ["UI", "Business logic", "State management", "API integration", "Authentication", "Database interaction"],
+    points: ["UI", "API", "Business logic", "Database", "Authentication"],
   },
   {
     number: "05",
     title: "Test & Debug",
-    points: ["Application behavior", "API response", "UI state", "Error handling", "Edge cases", "Integration issues"],
+    points: ["UI behavior", "API responses", "Edge cases", "Integration"],
   },
   {
     number: "06",
     title: "Improve",
-    points: ["Code structure", "Duplication", "UI", "UX", "Performance", "Readability", "Maintainability"],
+    points: ["Maintainability", "Performance", "Readability", "UX"],
   },
 ];

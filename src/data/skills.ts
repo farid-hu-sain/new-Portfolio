@@ -3,41 +3,31 @@ export interface SkillGroup {
   items: string[];
 }
 
-export const primaryTech = ["Kotlin", "Jetpack Compose", "Flutter", "NestJS", "PostgreSQL"];
+export const primaryTech = ["React", "TypeScript", "NestJS", "PostgreSQL", "Kotlin"];
 
 export const skillGroups: SkillGroup[] = [
   {
-    category: "Android",
-    items: ["Kotlin", "Jetpack Compose", "Android SDK", "Hilt", "Retrofit", "Moshi", "DataStore"],
+    category: "Languages",
+    items: ["TypeScript", "JavaScript", "Kotlin", "Dart"],
   },
   {
-    category: "Cross Platform",
-    items: ["Flutter", "Dart"],
+    category: "Frontend & Mobile",
+    items: ["React", "React Native", "Tailwind CSS", "Jetpack Compose", "Flutter"],
   },
   {
-    category: "Frontend",
-    items: ["React", "TypeScript", "JavaScript", "Tailwind CSS", "React Router"],
+    category: "Backend & APIs",
+    items: ["NestJS", "Node.js", "Express.js", "REST API", "Authentication"],
   },
   {
-    category: "Backend",
-    items: ["NestJS", "Express.js", "Node.js"],
+    category: "Database & Data",
+    items: ["PostgreSQL", "Prisma", "Supabase", "Local Database"],
   },
   {
-    category: "Database",
-    items: ["PostgreSQL", "Prisma", "Supabase"],
+    category: "Architecture & Engineering",
+    items: ["Clean Architecture", "MVVM", "Repository Pattern", "Dependency Injection", "State Management", "API Integration", "Offline-first"],
   },
   {
     category: "Tools",
-    items: ["Git", "GitHub", "Android Studio", "IntelliJ IDEA", "VS Code", "Postman", "Figma"],
+    items: ["Git", "GitHub", "Postman", "Docker", "Swagger", "Figma"],
   },
 ];
-
-const secondaryTech = skillGroups
-  .flatMap((g) => g.items)
-  .filter((tech, index, allTech) => allTech.indexOf(tech) === index)
-  .filter((tech) => !primaryTech.includes(tech));
-
-const splitAt = Math.ceil(secondaryTech.length / 2);
-
-export const secondaryTechRow1 = secondaryTech.slice(0, splitAt);
-export const secondaryTechRow2 = secondaryTech.slice(splitAt);

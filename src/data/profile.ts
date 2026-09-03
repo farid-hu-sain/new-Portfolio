@@ -1,6 +1,7 @@
 export const profile = {
   name: "Muhammad Farid Husain",
-  role: "Android & Mobile Developer",
+  role: "Fullstack Developer",
+  secondaryRole: "Software Engineer · Mobile Developer",
   location: "Bekasi, Indonesia",
   status: "Available for opportunities",
   email: "faridhusain3904@gmail.com",
